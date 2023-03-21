@@ -24,3 +24,33 @@ resource "google_compute_instance" "my-instance" {
   tags = ["test-server"]
 }
 
+# Create a firewall rule to allow HTTP traffic
+resource "google_compute_firewall" "http" {
+  name    = "http"
+  network = "default"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["80"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+
+  target_tags = ["test-server"]
+}
+
+# Create a firewall rule to allow HTTPS traffic
+resource "google_compute_firewall" "https" {
+  name    = "https"
+  network = "default"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["443"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+
+  target_tags = ["test-server"]
+}
+
