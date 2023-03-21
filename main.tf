@@ -16,5 +16,15 @@ resource "google_compute_instance" "my-instance" {
 
   network_interface {
     network = "default"
+    access_config {
+      // Ephemeral IP
+    }
   }
+
+  tags = ["web-server"]
+}
+
+# Output the VM's public IP address
+output "vm-ip" {
+  value = google_compute_instance.my-vm.network_interface[0].access_config[0].nat_ip
 }
