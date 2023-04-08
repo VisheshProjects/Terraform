@@ -1,0 +1,30 @@
+steps:
+- name: hashicorp/terraform:1.0.4
+  args: ['init']
+- name: hashicorp/terraform:1.0.4
+  args: ['apply', '-auto-approve']
+  env:
+  - 'GOOGLE_CREDENTIALS=${_SERVICE_ACCOUNT}'
+  - 'GOOGLE_PROJECT=${_PROJECT_ID}'
+  - 'GOOGLE_REGION=${_REGION}'
+  - 'GOOGLE_ZONE=${_ZONE}'
+  - 'INSTANCE_NAME=${_INSTANCE_NAME}'
+  - 'MACHINE_TYPE=${_MACHINE_TYPE}'
+  - 'BOOT_DISK_SIZE=${_BOOT_DISK_SIZE}'
+  - 'SOURCE_IMAGE=${_SOURCE_IMAGE}'
+  - 'SSH_USER=${_SSH_USER}'
+  - 'SSH_KEY=${_SSH_KEY}'
+substitutions:
+  _SERVICE_ACCOUNT: YOUR_SERVICE_ACCOUNT_JSON
+  _PROJECT_ID: YOUR_PROJECT_ID
+  _REGION: us-central1
+  _ZONE: us-central1-a
+  _INSTANCE_NAME: my-instance
+  _MACHINE_TYPE: n1-standard-1
+  _BOOT_DISK_SIZE: 10GB
+  _SOURCE_IMAGE: debian-cloud/debian-10
+  _SSH_USER: your-username
+  _SSH_KEY: |
+    -----BEGIN RSA PRIVATE KEY-----
+    YOUR_SSH_PRIVATE_KEY
+    -----END RSA PRIVATE KEY-----
